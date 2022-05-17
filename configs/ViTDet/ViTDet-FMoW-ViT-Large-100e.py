@@ -25,7 +25,6 @@ model = dict(
         drop_rate=0.,
         attn_drop_rate=0.,
         drop_path_rate=0.1,
-        use_abs_pos_emb=True,
         ),
     neck=dict(
         type='FPN',
