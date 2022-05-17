@@ -16,7 +16,7 @@ file_client_args = dict(backend='disk')
 
 train_pipeline = [
     dict(type='LoadImageFromFile', file_client_args=file_client_args),
-    dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
+    dict(type='LoadAnnotations', with_bbox=True, with_mask=False),
     dict(
         type='Resize',
         img_scale=image_size,
