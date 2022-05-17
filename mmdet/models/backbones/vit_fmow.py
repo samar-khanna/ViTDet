@@ -160,6 +160,8 @@ class VisionTransformerFMoW(timm.models.vision_transformer.VisionTransformer):
         x = self.patch_embed(x)
         batch_size, seq_len, _ = x.size()
 
+        cls_tokens = self.cls_token.expand(B, -1, -1)  # stole cls_tokens impl from Phil Wang, thanks
+        x = torch.cat((cls_tokens, x), dim=1)
         if self.pos_embed is not None:
             x = x + self.pos_embed
         x = self.pos_drop(x)
