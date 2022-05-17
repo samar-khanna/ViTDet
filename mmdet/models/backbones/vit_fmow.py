@@ -175,7 +175,7 @@ class VisionTransformerFMoW(timm.models.vision_transformer.VisionTransformer):
             #     x = blk(x, Hp, Wp)
         x = self.norm(x)  # (N, L, D)
 
-        patch_size = self.patch_embed.patch_size
+        patch_size = self.patch_embed.patch_size[0]
         xp = x.permute(0, 2, 1).reshape(B, -1, H//patch_size, W//patch_size)  # (N, D, H/P, W/P)
 
         ops = [self.fpn1, self.fpn2, self.fpn3, self.fpn4]
