@@ -55,10 +55,10 @@ test_pipeline = [
 # Use RepeatDataset to speed up training
 data = dict(
     samples_per_gpu=2,
-    workers_per_gpu=2,
+    workers_per_gpu=4,
     train=dict(
         type='RepeatDataset',
-        times=4,  # simply change this from 2 to 16 for 50e - 400e training.
+        times=1,  # simply change this from 2 to 16 for 50e - 400e training.
         dataset=dict(
             type=dataset_type,
             ann_file='/atlas/u/samarkhanna/xview_train.json',

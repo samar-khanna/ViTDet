@@ -192,3 +192,4 @@ optimizer = dict(
                             )
                  )
 lr_config = dict(warmup_iters=250) # 16 * 1000 == 250 * 64
+find_unused_parameters = True
