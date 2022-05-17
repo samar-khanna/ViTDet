@@ -97,8 +97,7 @@ class VisionTransformerFMoW(timm.models.vision_transformer.VisionTransformer):
         embed_dim = kwargs['embed_dim']
 
         # Added by Samar, need default pos embedding
-        pos_embed = get_2d_sincos_pos_embed(self.pos_embed.shape[-1], int(self.patch_embed.num_patches ** .5),
-                                            cls_token=True)
+        pos_embed = get_2d_sincos_pos_embed(self.pos_embed.shape[-1], int(self.patch_embed.num_patches ** .5))
         self.pos_embed.data.copy_(torch.from_numpy(pos_embed).float().unsqueeze(0))
 
         self.fpn1 = nn.Sequential(
@@ -160,8 +159,8 @@ class VisionTransformerFMoW(timm.models.vision_transformer.VisionTransformer):
         x = self.patch_embed(x)
         batch_size, seq_len, _ = x.size()
 
-        cls_tokens = self.cls_token.expand(B, -1, -1)  # stole cls_tokens impl from Phil Wang, thanks
-        x = torch.cat((cls_tokens, x), dim=1)
+        # cls_tokens = self.cls_token.expand(B, -1, -1)  # stole cls_tokens impl from Phil Wang, thanks
+        # x = torch.cat((cls_tokens, x), dim=1)
         if self.pos_embed is not None:
             x = x + self.pos_embed
         x = self.pos_drop(x)
@@ -176,7 +175,7 @@ class VisionTransformerFMoW(timm.models.vision_transformer.VisionTransformer):
         x = self.norm(x)  # (N, L, D)
 
         patch_size = self.patch_embed.patch_size[0]
-        xp = x[:, 1:, :].permute(0, 2, 1).reshape(B, -1, H//patch_size, W//patch_size)  # (N, D, H/P, W/P)
+        xp = x.permute(0, 2, 1).reshape(B, -1, H//patch_size, W//patch_size)  # (N, D, H/P, W/P)
 
         ops = [self.fpn1, self.fpn2, self.fpn3, self.fpn4]
         for i in range(len(ops)):
