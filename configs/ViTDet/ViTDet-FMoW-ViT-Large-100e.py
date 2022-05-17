@@ -34,24 +34,24 @@ model = dict(
         norm_cfg=norm_cfg,
         use_residual=False,
         num_outs=5),
-    rpn_head=dict(
-        type='RPNHead',
-        num_convs=2,
-        norm_cfg=head_norm_cfg,
-        in_channels=256,
-        feat_channels=256,
-        anchor_generator=dict(
-            type='AnchorGenerator',
-            scales=[8],
-            ratios=[0.5, 1.0, 2.0],
-            strides=[4, 8, 16, 32, 64]),
-        bbox_coder=dict(
-            type='DeltaXYWHBBoxCoder',
-            target_means=[.0, .0, .0, .0],
-            target_stds=[1.0, 1.0, 1.0, 1.0]),
-        loss_cls=dict(
-            type='CrossEntropyLoss', use_sigmoid=True, loss_weight=1.0),
-        loss_bbox=dict(type='L1Loss', loss_weight=1.0)),
+    # rpn_head=dict(
+    #     type='RPNHead',
+    #     num_convs=2,
+    #     norm_cfg=head_norm_cfg,
+    #     in_channels=256,
+    #     feat_channels=256,
+    #     anchor_generator=dict(
+    #         type='AnchorGenerator',
+    #         scales=[8],
+    #         ratios=[0.5, 1.0, 2.0],
+    #         strides=[4, 8, 16, 32, 64]),
+    #     bbox_coder=dict(
+    #         type='DeltaXYWHBBoxCoder',
+    #         target_means=[.0, .0, .0, .0],
+    #         target_stds=[1.0, 1.0, 1.0, 1.0]),
+    #     loss_cls=dict(
+    #         type='CrossEntropyLoss', use_sigmoid=True, loss_weight=1.0),
+    #     loss_bbox=dict(type='L1Loss', loss_weight=1.0)),
     bbox_head=dict(
         type='RetinaHead',
         num_classes=60,
