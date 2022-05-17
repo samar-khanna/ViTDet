@@ -1,8 +1,8 @@
 _base_ = '../_base_/default_runtime.py'
 # dataset settings
 dataset_type = 'XViewDataset'
-# img_norm_cfg = dict(
-#     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
+img_norm_cfg = dict(
+    mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 image_size = (416, 416)
 
 file_client_args = dict(backend='disk')
@@ -31,7 +31,7 @@ train_pipeline = [
         allow_negative_crop=True),
     dict(type='FilterAnnotations', min_gt_bbox_wh=(1e-2, 1e-2)),
     dict(type='RandomFlip', flip_ratio=0.5),
-    # dict(type='Normalize', **img_norm_cfg),
+    dict(type='Normalize', **img_norm_cfg),
     dict(type='Pad', size=image_size),  # padding to image_size leads 0.5+ mAP
     dict(type='DefaultFormatBundle'),
     dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels']),
@@ -45,7 +45,7 @@ test_pipeline = [
         transforms=[
             dict(type='Resize', keep_ratio=True),
             dict(type='RandomFlip'),
-            # dict(type='Normalize', **img_norm_cfg),
+            dict(type='Normalize', **img_norm_cfg),
             dict(type='Pad', size_divisor=1024),
             dict(type='ImageToTensor', keys=['img']),
             dict(type='Collect', keys=['img']),
