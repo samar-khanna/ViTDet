@@ -69,7 +69,7 @@ data = dict(
         ann_file='/atlas/u/samarkhanna/xview_val.json',
         # img_prefix=data_root + 'val2017/',
         pipeline=test_pipeline))
-evaluation = dict(interval=1, metric=['mAP', 'recall'])
+evaluation = dict(interval=1, metric=['mAP'])
 
 # optimizer assumes bs=64
 optimizer = dict(type='SGD', lr=0.1, momentum=0.9, weight_decay=0.00004)
