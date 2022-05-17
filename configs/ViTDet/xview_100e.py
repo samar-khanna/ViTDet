@@ -66,7 +66,7 @@ data = dict(
             pipeline=train_pipeline)),
     val=dict(
         type=dataset_type,
-        ann_file='/atlas/u/samarkhanna/xview_train.json',
+        ann_file='/atlas/u/samarkhanna/xview_val.json',
         # img_prefix=data_root + 'val2017/',
         pipeline=test_pipeline))
 evaluation = dict(interval=1, metric=['bbox'])
