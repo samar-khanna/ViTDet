@@ -1,8 +1,8 @@
 _base_ = '../_base_/default_runtime.py'
 # dataset settings
 dataset_type = 'XViewDataset'
-img_norm_cfg = dict(
-    mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
+# img_norm_cfg = dict(mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
+img_norm_cfg = dict(mean=[0., 0., 0.], std=[1., 1., 1.], to_rgb=True)
 image_size = (416, 416)
 
 file_client_args = dict(backend='disk')
@@ -69,7 +69,7 @@ data = dict(
         ann_file='/atlas/u/samarkhanna/xview_val.json',
         # img_prefix=data_root + 'val2017/',
         pipeline=test_pipeline))
-evaluation = dict(interval=1, metric=['mAP'])
+evaluation = dict(interval=1, metric=['mAP', 'recall'])
 
 # optimizer assumes bs=64
 optimizer = dict(type='SGD', lr=0.1, momentum=0.9, weight_decay=0.00004)
