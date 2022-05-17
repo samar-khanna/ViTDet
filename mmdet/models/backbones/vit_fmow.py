@@ -97,7 +97,8 @@ class VisionTransformerFMoW(timm.models.vision_transformer.VisionTransformer):
         embed_dim = kwargs['embed_dim']
 
         # Added by Samar, need default pos embedding
-        pos_embed = get_2d_sincos_pos_embed(self.pos_embed.shape[-1], int(self.patch_embed.num_patches ** .5))
+        pos_embed = get_2d_sincos_pos_embed(self.pos_embed.shape[-1], int(self.patch_embed.num_patches ** .5),
+                                            cls_token=True)
         self.pos_embed.data.copy_(torch.from_numpy(pos_embed).float().unsqueeze(0))
 
         self.fpn1 = nn.Sequential(
@@ -162,7 +163,7 @@ class VisionTransformerFMoW(timm.models.vision_transformer.VisionTransformer):
         # cls_tokens = self.cls_token.expand(B, -1, -1)  # stole cls_tokens impl from Phil Wang, thanks
         # x = torch.cat((cls_tokens, x), dim=1)
         if self.pos_embed is not None:
-            x = x + self.pos_embed
+            x = x + self.pos_embed[:, 1:, :]
         x = self.pos_drop(x)
 
         features = []
