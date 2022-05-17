@@ -390,9 +390,6 @@ def load_checkpoint(model,
                 state_dict[table_key] = table_pretrained_resized.view(nH2, L2).permute(1, 0)
     rank, _ = get_dist_info()
     if 'pos_embed' in state_dict:
-        del state_dict['head.weight']
-        del state_dict['head.bias']
-
         pos_embed_checkpoint = state_dict['pos_embed']
         embedding_size = pos_embed_checkpoint.shape[-1]
         num_patches = model.patch_embed.num_patches
