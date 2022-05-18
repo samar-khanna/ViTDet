@@ -119,6 +119,9 @@ class VisionTransformerFMoW(timm.models.vision_transformer.VisionTransformer):
         self.apply(self._init_weights)
         self.pretrained = pretrained
 
+        del self.head
+        del self.cls_token
+
         # self.global_pool = global_pool
         # if self.global_pool:
         #     norm_layer = kwargs['norm_layer']
